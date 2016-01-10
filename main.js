@@ -1,8 +1,9 @@
 Tasks = new Mongo.Collection("tasks");
 
 Router.route('/', function () {
-  this.layout('appLayout');
-  this.render('task', {to: 'aTask'});
+  this.render('appLayout');
+  //this.layout('appLayout');
+  //this.render('aTask', {to: 'aTask'});
 });
 
 Router.route('/about');
@@ -62,21 +63,24 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.task.helpers({
+  Template.aTask.helpers({
     isOwner: function () {
       return this.owner === Meteor.userId();
     }
   });
 
-  Template.task.events({
+  Template.aTask.events({
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
+      //console.log("check _id: ", Template.currentData()._id, this._id);
       Meteor.call("setChecked", this._id, ! this.checked);
     },
     "click .delete": function () {
+      //console.log("delete _id: ", Template.currentData()._id, this._id);
       Meteor.call("deleteTask", this._id);
     },
     "click .toggle-private": function () {
+      //console.log("priv _id: ", Template.currentData()._id, this._id);
       Meteor.call("setPrivate", this._id, ! this.private);
     }
   });

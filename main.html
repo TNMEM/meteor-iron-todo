@@ -60,7 +60,7 @@
             </header>
 
             <ul>
-              {{#each tasks}} {{> yield "aTask"}} {{/each}}
+              {{#each tasks}} {{> aTask}} {{/each}}
             </ul>
           </div>
         </div>
@@ -69,7 +69,8 @@
   </body>
 </template>
 
-<template name="task">
+<!-- first called this "task" but that wouldn't work. -->
+<template name="aTask">
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
     <button class="delete orange white-text">&times;</button>
 
