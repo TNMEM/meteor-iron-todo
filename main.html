@@ -1,0 +1,91 @@
+<template name="appLayout">
+  <head>
+    <title>Todo List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+      .hide-completed,
+      .delete {
+        float: right;
+      }
+      li.checked .text {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <!-- #f44336 is the same as materializecss red -->
+      <nav role="navigation">
+        <div class="nav-wrapper orange center"><a id="logo-container" href="#" class="brand-logo">Todo List ({{incompleteCount}})</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+      <div class="section">
+        <div class="row">
+          <div class="col s12">
+            <header>
+              <br />
+              <!-- <label class="hide-completed">
+              <input type="checkbox" id="hide-completed" checked="{{hideCompleted}}" />
+              <label for="hide-completed">Hide Completed Tasks</label>
+            </label> -->
+              <div class="switch">
+                <label class="hide-completed">
+                  <label for="hide-completed">Hide Completed Tasks</label>
+                  <br />
+                  <input type="checkbox" id="hide-completed" checked="{{hideCompleted}}" /> No <span class="lever blue accent-1"></span> Yes
+                </label>
+              </div>
+              {{> loginButtons}} {{#if currentUser}}
+              <form class="new-task" autocomplete="off">
+                <br />
+                <br />
+                <!-- <input type="text" name="text" placeholder="Enter new task" /> -->
+                <div class="input-field">
+                  <input id="text" type="text">
+                  <label for="text">
+                    <!-- used type="submit" but didn't work on mobile browser. -->
+                    <button class="btn-floating btn-small waves-effect waves-light pink accent-2"><i class="material-icons">add</i></button> New todo
+                  </label>
+                </div>
+              </form>
+              {{/if}}
+            </header>
+
+            <ul>
+              {{#each tasks}} {{> yield "aTask"}} {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</template>
+
+<template name="task">
+  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+    <button class="delete orange white-text">&times;</button>
+
+    <input type="checkbox" checked="{{checked}}" id="{{username}}{{text}}" class="toggle-checked" />
+    <label for="{{username}}{{text}}"></label>
+
+    {{#if isOwner}}
+    <button class="waves-effect waves-orange white black-text toggle-private">
+      {{#if private}} Private {{else}} &nbsp;Public&nbsp; {{/if}}
+    </button>
+    {{/if}}
+
+    <span class="text"><strong>{{username}}</strong> - {{text}}</span>
+  </li>
+</template>
+
+<template name="about">
+  <h3>
+    <br />
+    This little application is the meteor todo example redone with materializecss and iron router.
+  </h3>
+</template>
