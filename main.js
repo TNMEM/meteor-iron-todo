@@ -2,7 +2,6 @@ Tasks = new Mongo.Collection("tasks");
 
 Router.route('/', function () {
   this.layout('appLayout');
-  this.render('head');
   this.render('task', {to: 'aTask'});
 });
 
